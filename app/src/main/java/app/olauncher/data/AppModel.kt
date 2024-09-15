@@ -10,9 +10,12 @@ data class AppModel(
     val activityClassName: String?,
     val isNew: Boolean? = false,
     val user: UserHandle,
+    val url: String,
+    val browser: String,
 ) : Comparable<AppModel> {
     override fun compareTo(other: AppModel): Int = when {
         key != null && other.key != null -> key.compareTo(other.key)
         else -> appLabel.compareTo(other.appLabel, true)
     }
 }
+

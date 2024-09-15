@@ -71,6 +71,22 @@ class Prefs(context: Context) {
     private val APP_USER_6 = "APP_USER_6"
     private val APP_USER_7 = "APP_USER_7"
     private val APP_USER_8 = "APP_USER_8"
+    private val APP_URL_1 = "APP_URL_1"
+    private val APP_URL_2 = "APP_URL_2"
+    private val APP_URL_3 = "APP_URL_3"
+    private val APP_URL_4 = "APP_URL_4"
+    private val APP_URL_5 = "APP_URL_5"
+    private val APP_URL_6 = "APP_URL_6"
+    private val APP_URL_7 = "APP_URL_7"
+    private val APP_URL_8 = "APP_URL_8"
+    private val APP_BROWSER_1 = "APP_BROWSER_1"
+    private val APP_BROWSER_2 = "APP_BROWSER_2"
+    private val APP_BROWSER_3 = "APP_BROWSER_3"
+    private val APP_BROWSER_4 = "APP_BROWSER_4"
+    private val APP_BROWSER_5 = "APP_BROWSER_5"
+    private val APP_BROWSER_6 = "APP_BROWSER_6"
+    private val APP_BROWSER_7 = "APP_BROWSER_7"
+    private val APP_BROWSER_8 = "APP_BROWSER_8"
 
     private val APP_NAME_SWIPE_LEFT = "APP_NAME_SWIPE_LEFT"
     private val APP_NAME_SWIPE_RIGHT = "APP_NAME_SWIPE_RIGHT"
@@ -80,12 +96,22 @@ class Prefs(context: Context) {
     private val APP_ACTIVITY_CLASS_NAME_SWIPE_RIGHT = "APP_ACTIVITY_CLASS_NAME_SWIPE_RIGHT"
     private val APP_USER_SWIPE_LEFT = "APP_USER_SWIPE_LEFT"
     private val APP_USER_SWIPE_RIGHT = "APP_USER_SWIPE_RIGHT"
+    private val APP_URL_SWIPE_LEFT = "APP_URL_SWIPE_LEFT"
+    private val APP_URL_SWIPE_RIGHT = "APP_URL_SWIPE_RIGHT"
+    private val APP_BROWSER_SWIPE_LEFT = "APP_BROWSER_SWIPE_LEFT"
+    private val APP_BROWSER_SWIPE_RIGHT = "APP_BROWSER_SWIPE_RIGHT"
     private val CLOCK_APP_PACKAGE = "CLOCK_APP_PACKAGE"
     private val CLOCK_APP_USER = "CLOCK_APP_USER"
     private val CLOCK_APP_CLASS_NAME = "CLOCK_APP_CLASS_NAME"
+    private val CLOCK_APP_URL = "CLOCK_APP_URL"
+    private val CLOCK_APP_BROWSER = "CLOCK_APP_BROWSER"
     private val CALENDAR_APP_PACKAGE = "CALENDAR_APP_PACKAGE"
     private val CALENDAR_APP_USER = "CALENDAR_APP_USER"
     private val CALENDAR_APP_CLASS_NAME = "CALENDAR_APP_CLASS_NAME"
+    private val CALENDAR_APP_URL = "CALENDAR_APP_URL"
+    private val CALENDAR_APP_BROWSER = "CALENDAR_APP_BROWSER"
+
+    private val WEBSITES = "WEBSITES"
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0);
 
@@ -333,6 +359,69 @@ class Prefs(context: Context) {
         get() = prefs.getString(APP_USER_8, "").toString()
         set(value) = prefs.edit().putString(APP_USER_8, value).apply()
 
+    var appUrl1: String
+        get() = prefs.getString(APP_URL_1, "").toString()
+        set(value) = prefs.edit().putString(APP_URL_1, value).apply()
+    var appUrl2: String
+        get() = prefs.getString(APP_URL_2, "").toString()
+        set(value) = prefs.edit().putString(APP_URL_2, value).apply()
+
+    var appUrl3: String
+        get() = prefs.getString(APP_URL_3, "").toString()
+        set(value) = prefs.edit().putString(APP_URL_3, value).apply()
+
+    var appUrl4: String
+        get() = prefs.getString(APP_URL_4, "").toString()
+        set(value) = prefs.edit().putString(APP_URL_4, value).apply()
+
+    var appUrl5: String
+        get() = prefs.getString(APP_URL_5, "").toString()
+        set(value) = prefs.edit().putString(APP_URL_5, value).apply()
+
+    var appUrl6: String
+        get() = prefs.getString(APP_URL_6, "").toString()
+        set(value) = prefs.edit().putString(APP_URL_6, value).apply()
+
+    var appUrl7: String
+        get() = prefs.getString(APP_URL_7, "").toString()
+        set(value) = prefs.edit().putString(APP_URL_7, value).apply()
+
+    var appUrl8: String
+        get() = prefs.getString(APP_URL_8, "").toString()
+        set(value) = prefs.edit().putString(APP_URL_8, value).apply()
+
+    var appBrowser1: String
+        get() = prefs.getString(APP_BROWSER_1, "").toString()
+        set(value) = prefs.edit().putString(APP_BROWSER_1, value).apply()
+
+    var appBrowser2: String
+        get() = prefs.getString(APP_BROWSER_2, "").toString()
+        set(value) = prefs.edit().putString(APP_BROWSER_2, value).apply()
+
+    var appBrowser3: String
+        get() = prefs.getString(APP_BROWSER_3, "").toString()
+        set(value) = prefs.edit().putString(APP_BROWSER_3, value).apply()
+
+    var appBrowser4: String
+        get() = prefs.getString(APP_BROWSER_4, "").toString()
+        set(value) = prefs.edit().putString(APP_BROWSER_4, value).apply()
+
+    var appBrowser5: String
+        get() = prefs.getString(APP_BROWSER_5, "").toString()
+        set(value) = prefs.edit().putString(APP_BROWSER_5, value).apply()
+
+    var appBrowser6: String
+        get() = prefs.getString(APP_BROWSER_6, "").toString()
+        set(value) = prefs.edit().putString(APP_BROWSER_6, value).apply()
+
+    var appBrowser7: String
+        get() = prefs.getString(APP_BROWSER_7, "").toString()
+        set(value) = prefs.edit().putString(APP_BROWSER_7, value).apply()
+
+    var appBrowser8: String
+        get() = prefs.getString(APP_BROWSER_8, "").toString()
+        set(value) = prefs.edit().putString(APP_BROWSER_8, value).apply()
+
     var appNameSwipeLeft: String
         get() = prefs.getString(APP_NAME_SWIPE_LEFT, "Camera").toString()
         set(value) = prefs.edit().putString(APP_NAME_SWIPE_LEFT, value).apply()
@@ -365,6 +454,20 @@ class Prefs(context: Context) {
         get() = prefs.getString(APP_USER_SWIPE_RIGHT, "").toString()
         set(value) = prefs.edit().putString(APP_USER_SWIPE_RIGHT, value).apply()
 
+    var appUrlSwipeLeft : String
+        get() = prefs.getString(APP_URL_SWIPE_LEFT, "").toString()
+        set(value) = prefs.edit().putString(APP_URL_SWIPE_LEFT, value).apply()
+    var appUrlSwipeRight : String
+        get() = prefs.getString(APP_URL_SWIPE_RIGHT, "").toString()
+        set(value) = prefs.edit().putString(APP_URL_SWIPE_RIGHT, value).apply()
+
+    var appBrowserSwipeLeft : String
+        get() = prefs.getString(APP_BROWSER_SWIPE_LEFT, "").toString()
+        set(value) = prefs.edit().putString(APP_BROWSER_SWIPE_LEFT, value).apply()
+    var appBrowserSwipeRight : String
+        get() = prefs.getString(APP_BROWSER_SWIPE_RIGHT, "").toString()
+        set(value) = prefs.edit().putString(APP_BROWSER_SWIPE_RIGHT, value).apply()
+
     var clockAppPackage: String
         get() = prefs.getString(CLOCK_APP_PACKAGE, "").toString()
         set(value) = prefs.edit().putString(CLOCK_APP_PACKAGE, value).apply()
@@ -377,6 +480,14 @@ class Prefs(context: Context) {
         get() = prefs.getString(CLOCK_APP_CLASS_NAME, "").toString()
         set(value) = prefs.edit().putString(CLOCK_APP_CLASS_NAME, value).apply()
 
+    var clockAppUrl: String
+        get() = prefs.getString(CLOCK_APP_URL, "").toString()
+        set(value) = prefs.edit().putString(CLOCK_APP_URL, value).apply()
+
+    var clockAppBrowser: String
+        get() = prefs.getString(CLOCK_APP_BROWSER, "").toString()
+        set(value) = prefs.edit().putString(CLOCK_APP_BROWSER, value).apply()
+
     var calendarAppPackage: String
         get() = prefs.getString(CALENDAR_APP_PACKAGE, "").toString()
         set(value) = prefs.edit().putString(CALENDAR_APP_PACKAGE, value).apply()
@@ -388,6 +499,18 @@ class Prefs(context: Context) {
     var calendarAppClassName: String?
         get() = prefs.getString(CALENDAR_APP_CLASS_NAME, "").toString()
         set(value) = prefs.edit().putString(CALENDAR_APP_CLASS_NAME, value).apply()
+
+    var calendarAppUrl: String
+        get() = prefs.getString(CALENDAR_APP_URL, "").toString()
+        set(value) = prefs.edit().putString(CALENDAR_APP_URL, value).apply()
+
+    var calendarAppBrowser: String
+        get() = prefs.getString(CALENDAR_APP_BROWSER, "").toString()
+        set(value) = prefs.edit().putString(CALENDAR_APP_BROWSER, value).apply()
+
+    var websites: MutableSet<String>
+        get() = prefs.getStringSet(WEBSITES, mutableSetOf()) as MutableSet<String>
+        set(value) = prefs.edit().putStringSet(WEBSITES, value).apply()
 
     fun getAppName(location: Int): String {
         return when (location) {
@@ -444,8 +567,42 @@ class Prefs(context: Context) {
             else -> ""
         }
     }
-
+    fun getAppUrl(location: Int): String {
+        return when (location) {
+            1 -> prefs.getString(APP_URL_1, "").toString()
+            2 -> prefs.getString(APP_URL_2, "").toString()
+            3 -> prefs.getString(APP_URL_3, "").toString()
+            4 -> prefs.getString(APP_URL_4, "").toString()
+            5 -> prefs.getString(APP_URL_5, "").toString()
+            6 -> prefs.getString(APP_URL_6, "").toString()
+            7 -> prefs.getString(APP_URL_7, "").toString()
+            8 -> prefs.getString(APP_URL_8, "").toString()
+            else -> ""
+        }
+    }
+    fun getAppBrowser(location: Int): String {
+        return when (location) {
+            1 -> prefs.getString(APP_BROWSER_1, "").toString()
+            2 -> prefs.getString(APP_BROWSER_2, "").toString()
+            3 -> prefs.getString(APP_BROWSER_3, "").toString()
+            4 -> prefs.getString(APP_BROWSER_4, "").toString()
+            5 -> prefs.getString(APP_BROWSER_5, "").toString()
+            6 -> prefs.getString(APP_BROWSER_6, "").toString()
+            7 -> prefs.getString(APP_BROWSER_7, "").toString()
+            8 -> prefs.getString(APP_BROWSER_8, "").toString()
+            else -> ""
+        }
+    }
     fun getAppRenameLabel(appPackage: String): String = prefs.getString(appPackage, "").toString()
 
     fun setAppRenameLabel(appPackage: String, renameLabel: String) = prefs.edit().putString(appPackage, renameLabel).apply()
+
+    fun getWebsiteRenameLabel(url: String?): String = prefs.getString(url, "").toString()
+    fun setWebsiteRenameLabel(url: String?, renameLabel: String) = prefs.edit().putString(url, renameLabel).apply()
+
+    fun getBrowserOption(url: String?): String = prefs.getString(url+"browser", "").toString()
+    fun setBrowserOption(url: String?, browserPackage: String) = prefs.edit().putString(url+"browser", browserPackage).apply()
+
+
 }
+

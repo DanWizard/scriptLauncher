@@ -2,6 +2,8 @@ package app.olauncher.ui
 
 import android.app.admin.DevicePolicyManager
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.BatteryManager
 import android.os.Build
 import android.os.Bundle
@@ -106,7 +108,9 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                 "Clock",
                 prefs.clockAppPackage,
                 prefs.clockAppClassName,
-                prefs.clockAppUser
+                prefs.clockAppUser,
+                prefs.clockAppUrl,
+                prefs.clockAppBrowser
             )
     }
 
@@ -118,7 +122,9 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                 "Calendar",
                 prefs.calendarAppPackage,
                 prefs.calendarAppClassName,
-                prefs.calendarAppUser
+                prefs.calendarAppUser,
+                prefs.calendarAppUrl,
+                prefs.calendarAppBrowser
             )
     }
 
@@ -137,6 +143,8 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                 prefs.clockAppPackage = ""
                 prefs.clockAppClassName = ""
                 prefs.clockAppUser = ""
+                prefs.clockAppUrl = ""
+                prefs.clockAppBrowser= ""
             }
 
             R.id.date -> {
@@ -144,6 +152,8 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                 prefs.calendarAppPackage = ""
                 prefs.calendarAppClassName = ""
                 prefs.calendarAppUser = ""
+                prefs.calendarAppUrl = ""
+                prefs.calendarAppBrowser = ""
             }
         }
         return true
@@ -297,7 +307,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
     }
 
     private fun setHomeAppText(textView: TextView, appName: String, packageName: String, userString: String): Boolean {
-        if (isPackageInstalled(requireContext(), packageName, userString)) {
+        if (isPackageInstalled(requireContext(), packageName, userString) || packageName == "website" ) {
             textView.text = appName
             return true
         }
@@ -315,29 +325,44 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         binding.homeApp7.visibility = View.GONE
         binding.homeApp8.visibility = View.GONE
     }
-
+    private fun openUrl(url:String, browser: String){
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        if (browser.isNotEmpty()) {
+            browserIntent.setPackage(browser)
+        }
+        startActivity(browserIntent)
+    }
     private fun homeAppClicked(location: Int) {
         if (prefs.getAppName(location).isEmpty()) showLongPressToast()
-        else launchApp(
+        launchApp(
             prefs.getAppName(location),
             prefs.getAppPackage(location),
             prefs.getAppActivityClassName(location),
-            prefs.getAppUser(location)
+            prefs.getAppUser(location),
+            prefs.getAppUrl(location),
+            prefs.getAppBrowser(location)
         )
     }
 
-    private fun launchApp(appName: String, packageName: String, activityClassName: String?, userString: String) {
-        viewModel.selectedApp(
-            AppModel(
-                appName,
-                null,
-                packageName,
-                activityClassName,
-                false,
-                getUserHandleFromString(requireContext(), userString)
-            ),
-            Constants.FLAG_LAUNCH_APP
-        )
+    private fun launchApp(appName: String, packageName: String, activityClassName: String?, userString: String, url: String, browser: String) {
+        if(packageName=="website"){
+            openUrl(url,browser)
+        }
+        else {
+            viewModel.selectedApp(
+                AppModel(
+                    appName,
+                    null,
+                    packageName,
+                    activityClassName,
+                    false,
+                    getUserHandleFromString(requireContext(), userString),
+                    url,
+                    browser
+                ),
+                Constants.FLAG_LAUNCH_APP
+            )
+        }
     }
 
     private fun showAppList(flag: Int, rename: Boolean = false, includeHiddenApps: Boolean = false) {
@@ -376,7 +401,9 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                 prefs.appNameSwipeRight,
                 prefs.appPackageSwipeRight,
                 prefs.appActivityClassNameRight,
-                prefs.appUserSwipeRight
+                prefs.appUserSwipeRight,
+                prefs.appUrlSwipeRight,
+                prefs.appBrowserSwipeRight
             )
         else openDialerApp(requireContext())
     }
@@ -388,7 +415,9 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                 prefs.appNameSwipeLeft,
                 prefs.appPackageSwipeLeft,
                 prefs.appActivityClassNameSwipeLeft,
-                prefs.appUserSwipeLeft
+                prefs.appUserSwipeLeft,
+                prefs.appUrlSwipeLeft,
+                prefs.appBrowserSwipeLeft
             )
         else openCameraApp(requireContext())
     }
@@ -531,3 +560,4 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         _binding = null
     }
 }
+

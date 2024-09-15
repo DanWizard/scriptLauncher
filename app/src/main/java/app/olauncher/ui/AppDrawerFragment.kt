@@ -1,5 +1,7 @@
 package app.olauncher.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +29,7 @@ import app.olauncher.helper.openUrl
 import app.olauncher.helper.showKeyboard
 import app.olauncher.helper.showToast
 import app.olauncher.helper.uninstall
+import app.olauncher.helper.BrowserSelector
 
 
 class AppDrawerFragment : Fragment() {
@@ -81,7 +84,14 @@ class AppDrawerFragment : Fragment() {
     private fun initSearch() {
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query?.startsWith("!") == true)
+                if (query?.startsWith("*") == true) {
+                    val newSet = mutableSetOf<String>()
+                    newSet.addAll(prefs.websites)
+                    newSet.add(query.replace("*", ""))
+                    prefs.websites = newSet
+                    requireContext().openUrl(query.replace("*", ""))
+                }
+                else if (query?.startsWith("!") == true)
                     requireContext().openUrl(Constants.URL_DUCK_SEARCH + query.replace(" ", "%20"))
                 else if (adapter.itemCount == 0) // && requireContext().searchOnPlayStore(query?.trim()).not())
                     requireContext().openSearch(query?.trim())
@@ -111,26 +121,52 @@ class AppDrawerFragment : Fragment() {
             appClickListener = {
                 if (it.appPackage.isEmpty())
                     return@AppDrawerAdapter
-                viewModel.selectedApp(it, flag)
+                if (it.appPackage == "website" && (flag == Constants.FLAG_LAUNCH_APP || flag == Constants.FLAG_HIDDEN_APPS)){
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
+                    if (it.browser.isNotEmpty()){
+                        browserIntent.setPackage(it.browser)
+                    }
+                    startActivity(browserIntent)
+                }
+                else {
+                    viewModel.selectedApp(it, flag)
+                }
                 if (flag == Constants.FLAG_LAUNCH_APP || flag == Constants.FLAG_HIDDEN_APPS)
                     findNavController().popBackStack(R.id.mainFragment, false)
                 else
                     findNavController().popBackStack()
             },
             appInfoListener = {
-                openAppInfo(
-                    requireContext(),
-                    it.user,
-                    it.appPackage
-                )
-                findNavController().popBackStack(R.id.mainFragment, false)
+                if (it.appPackage=="website"){
+                    val browserSelector = BrowserSelector(requireContext())
+                    browserSelector.showBrowserSelectionDialog(it.url){browserPackage ->
+                        prefs.setBrowserOption(it.url, browserPackage)
+                    }
+                }
+                else {
+                    openAppInfo(
+                        requireContext(),
+                        it.user,
+                        it.appPackage
+                    )
+                    findNavController().popBackStack(R.id.mainFragment, false)
+                }
             },
-            appDeleteListener = {
+            appDeleteListener = { appModel, position ->
+                adapter.appFilteredList.removeAt(position)
+                adapter.notifyItemRemoved(position)
+                adapter.appsList.remove(appModel)
                 requireContext().apply {
-                    if (isSystemApp(it.appPackage))
+                    if (isSystemApp(appModel.appPackage))
                         showToast(getString(R.string.system_app_cannot_delete))
+                    else if (appModel.appPackage=="website") {
+                        val newSet = mutableSetOf<String>()
+                        newSet.addAll(prefs.websites)
+                        newSet.remove(appModel.url)
+                        prefs.websites = newSet
+                    }
                     else
-                        uninstall(it.appPackage)
+                        uninstall(appModel.appPackage)
                 }
             },
             appHideListener = { appModel, position ->
@@ -141,11 +177,19 @@ class AppDrawerFragment : Fragment() {
                 val newSet = mutableSetOf<String>()
                 newSet.addAll(prefs.hiddenApps)
                 if (flag == Constants.FLAG_HIDDEN_APPS) {
-                    newSet.remove(appModel.appPackage) // for backward compatibility
-                    newSet.remove(appModel.appPackage + "|" + appModel.user.toString())
-                } else
-                    newSet.add(appModel.appPackage + "|" + appModel.user.toString())
-
+                    if( appModel.appPackage=="website"){
+                        newSet.remove(appModel.url + "|" + appModel.user.toString())
+                    }
+                    else {
+                        newSet.remove(appModel.appPackage) // for backward compatibility
+                        newSet.remove(appModel.appPackage + "|" + appModel.user.toString())
+                    }
+                } else {
+                    if (appModel.appPackage == "website") {
+                        newSet.add(appModel.url + "|" + appModel.user.toString())
+                    } else
+                        newSet.add(appModel.appPackage + "|" + appModel.user.toString())
+                }
                 prefs.hiddenApps = newSet
                 if (newSet.isEmpty())
                     findNavController().popBackStack()
@@ -159,7 +203,12 @@ class AppDrawerFragment : Fragment() {
                 viewModel.getHiddenApps()
             },
             appRenameListener = { appModel, renameLabel ->
-                prefs.setAppRenameLabel(appModel.appPackage, renameLabel)
+                if (appModel.appPackage=="website"){
+                    prefs.setWebsiteRenameLabel(appModel.url, renameLabel)
+                }
+                else {
+                    prefs.setAppRenameLabel(appModel.appPackage, renameLabel)
+                }
                 viewModel.getAppList()
             }
         )
@@ -285,3 +334,4 @@ class AppDrawerFragment : Fragment() {
         _binding = null
     }
 }
+

@@ -75,6 +75,7 @@ suspend fun getAppsList(
         try {
             if (!Prefs(context).hiddenAppsUpdated) upgradeHiddenApps(Prefs(context))
             val hiddenApps = Prefs(context).hiddenApps
+            val websites = Prefs(context).websites
 
             val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
             val launcherApps = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
@@ -90,7 +91,9 @@ suspend fun getAppsList(
                         app.applicationInfo.packageName,
                         app.componentName.className,
                         (System.currentTimeMillis() - app.firstInstallTime) < Constants.ONE_HOUR_IN_MILLIS,
-                        profile
+                        profile,
+                        "",
+                        ""
                     )
 
                     // if the current app is not OLauncher
@@ -108,7 +111,23 @@ suspend fun getAppsList(
                         }
                     }
                 }
+                for (website in websites){
+                    val appLabelShown = prefs.getWebsiteRenameLabel(website).ifBlank { website }
+                    val browser = prefs.getBrowserOption(website).ifBlank { "" }
+                    val appModel = AppModel(appLabelShown,null,"website",website,false,android.os.Process.myUserHandle(),website,browser)
+                    if (hiddenApps.contains(website + "|" + profile.toString())) {
+                        if (includeHiddenApps){
+                            appList.add(appModel)
+                        }
+                    } else{
+                       if (includeRegularApps){
+                           appList.add(appModel)
+                       }
+                    }
+
+                }
             }
+
             appList.sortBy { it.appLabel.lowercase() }
 
         } catch (e: Exception) {
@@ -502,3 +521,4 @@ fun Context.rateApp() {
     intent.addFlags(flags)
     startActivity(intent)
 }
+

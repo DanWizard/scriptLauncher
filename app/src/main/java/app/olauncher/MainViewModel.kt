@@ -48,7 +48,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             Constants.FLAG_LAUNCH_APP -> {
                 launchApp(appModel.appPackage, appModel.activityClassName, appModel.user)
             }
-
             Constants.FLAG_HIDDEN_APPS -> {
                 launchApp(appModel.appPackage, appModel.activityClassName, appModel.user)
             }
@@ -58,6 +57,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.appPackage1 = appModel.appPackage
                 prefs.appUser1 = appModel.user.toString()
                 prefs.appActivityClassName1 = appModel.activityClassName
+                prefs.appUrl1 = appModel.url
+                prefs.appBrowser1 = appModel.browser
                 refreshHome(false)
             }
 
@@ -66,6 +67,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.appPackage2 = appModel.appPackage
                 prefs.appUser2 = appModel.user.toString()
                 prefs.appActivityClassName2 = appModel.activityClassName
+                prefs.appUrl2 = appModel.url
+                prefs.appBrowser2 = appModel.browser
                 refreshHome(false)
             }
 
@@ -74,6 +77,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.appPackage3 = appModel.appPackage
                 prefs.appUser3 = appModel.user.toString()
                 prefs.appActivityClassName3 = appModel.activityClassName
+                prefs.appUrl3 = appModel.url
+                prefs.appBrowser3 = appModel.browser
                 refreshHome(false)
             }
 
@@ -82,6 +87,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.appPackage4 = appModel.appPackage
                 prefs.appUser4 = appModel.user.toString()
                 prefs.appActivityClassName4 = appModel.activityClassName
+                prefs.appUrl4 = appModel.url
+                prefs.appBrowser4 = appModel.browser
                 refreshHome(false)
             }
 
@@ -90,6 +97,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.appPackage5 = appModel.appPackage
                 prefs.appUser5 = appModel.user.toString()
                 prefs.appActivityClassName5 = appModel.activityClassName
+                prefs.appUrl5 = appModel.url
+                prefs.appBrowser5 = appModel.browser
                 refreshHome(false)
             }
 
@@ -98,6 +107,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.appPackage6 = appModel.appPackage
                 prefs.appUser6 = appModel.user.toString()
                 prefs.appActivityClassName6 = appModel.activityClassName
+                prefs.appUrl6 = appModel.url
+                prefs.appBrowser6 = appModel.browser
                 refreshHome(false)
             }
 
@@ -106,6 +117,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.appPackage7 = appModel.appPackage
                 prefs.appUser7 = appModel.user.toString()
                 prefs.appActivityClassName7 = appModel.activityClassName
+                prefs.appUrl7 = appModel.url
+                prefs.appBrowser7 = appModel.browser
                 refreshHome(false)
             }
 
@@ -114,6 +127,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.appPackage8 = appModel.appPackage
                 prefs.appUser8 = appModel.user.toString()
                 prefs.appActivityClassName8 = appModel.activityClassName
+                prefs.appUrl8 = appModel.url
+                prefs.appBrowser8 = appModel.browser
                 refreshHome(false)
             }
 
@@ -122,6 +137,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.appPackageSwipeLeft = appModel.appPackage
                 prefs.appUserSwipeLeft = appModel.user.toString()
                 prefs.appActivityClassNameSwipeLeft = appModel.activityClassName
+                prefs.appUrlSwipeLeft = appModel.url
+                prefs.appBrowserSwipeLeft = appModel.browser
                 updateSwipeApps()
             }
 
@@ -130,6 +147,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.appPackageSwipeRight = appModel.appPackage
                 prefs.appUserSwipeRight = appModel.user.toString()
                 prefs.appActivityClassNameRight = appModel.activityClassName
+                prefs.appUrlSwipeRight = appModel.url
+                prefs.appBrowserSwipeRight = appModel.browser
                 updateSwipeApps()
             }
 
@@ -137,12 +156,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.clockAppPackage = appModel.appPackage
                 prefs.clockAppUser = appModel.user.toString()
                 prefs.clockAppClassName = appModel.activityClassName
+                prefs.clockAppUrl = appModel.url
+                prefs.clockAppBrowser = appModel.browser
             }
 
             Constants.FLAG_SET_CALENDAR_APP -> {
                 prefs.calendarAppPackage = appModel.appPackage
                 prefs.calendarAppUser = appModel.user.toString()
                 prefs.calendarAppClassName = appModel.activityClassName
+                prefs.calendarAppUrl = appModel.url
+                prefs.calendarAppBrowser = appModel.browser
             }
         }
     }
@@ -244,3 +267,4 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         homeAppAlignment.value = prefs.homeAlignment
     }
 }
+

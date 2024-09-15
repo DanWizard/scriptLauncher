@@ -28,7 +28,7 @@ class AppDrawerAdapter(
     private val appLabelGravity: Int,
     private val appClickListener: (AppModel) -> Unit,
     private val appInfoListener: (AppModel) -> Unit,
-    private val appDeleteListener: (AppModel) -> Unit,
+    private val appDeleteListener: (AppModel, Int) -> Unit,
     private val appHideListener: (AppModel, Int) -> Unit,
     private val appRenameListener: (AppModel, String) -> Unit,
 ) : ListAdapter<AppModel, AppDrawerAdapter.ViewHolder>(DIFF_CALLBACK), Filterable {
@@ -130,7 +130,7 @@ class AppDrawerAdapter(
 
     fun setAppList(appsList: MutableList<AppModel>) {
         // Add empty app for bottom padding in recyclerview
-        appsList.add(AppModel("", null, "", "", false, android.os.Process.myUserHandle()))
+        appsList.add(AppModel("", null, "", "", false, android.os.Process.myUserHandle(),"",""))
         this.appsList = appsList
         this.appFilteredList = appsList
         submitList(appsList)
@@ -149,7 +149,7 @@ class AppDrawerAdapter(
             myUserHandle: UserHandle,
             appModel: AppModel,
             clickListener: (AppModel) -> Unit,
-            appDeleteListener: (AppModel) -> Unit,
+            appDeleteListener: (AppModel, Int) -> Unit,
             appInfoListener: (AppModel) -> Unit,
             appHideListener: (AppModel, Int) -> Unit,
             appRenameListener: (AppModel, String) -> Unit,
@@ -178,7 +178,12 @@ class AppDrawerAdapter(
                 }
                 appRename.setOnClickListener {
                     if (appModel.appPackage.isNotEmpty()) {
-                        etAppRename.hint = getAppName(etAppRename.context, appModel.appPackage)
+                        if (appModel.appPackage == "website") {
+                            etAppRename.hint = appModel.url
+                        } else{
+                            etAppRename.hint = getAppName(etAppRename.context, appModel.appPackage)
+                        }
+
                         etAppRename.setText(appModel.appLabel)
                         etAppRename.setSelectAllOnFocus(true)
                         renameLayout.visibility = View.VISIBLE
@@ -195,7 +200,11 @@ class AppDrawerAdapter(
                 }
                 etAppRename.addTextChangedListener(object : TextWatcher {
                     override fun afterTextChanged(s: Editable?) {
-                        etAppRename.hint = getAppName(etAppRename.context, appModel.appPackage)
+                        if (appModel.appPackage == "website") {
+                            etAppRename.hint = appModel.url
+                        } else{
+                            etAppRename.hint = getAppName(etAppRename.context, appModel.appPackage)
+                        }
                     }
 
                     override fun beforeTextChanged(
@@ -244,7 +253,7 @@ class AppDrawerAdapter(
                     }
                 }
                 appInfo.setOnClickListener { appInfoListener(appModel) }
-                appDelete.setOnClickListener { appDeleteListener(appModel) }
+                appDelete.setOnClickListener { appDeleteListener(appModel, bindingAdapterPosition) }
                 appMenuClose.setOnClickListener {
                     appHideLayout.visibility = View.GONE
                     appTitle.visibility = View.VISIBLE
@@ -264,3 +273,4 @@ class AppDrawerAdapter(
         }
     }
 }
+
