@@ -1,29 +1,20 @@
 ![Olauncher](https://repository-images.githubusercontent.com/278638069/db0acb80-661b-11eb-803e-926cae5dccb4)
 
 
-# Olauncher | Minimal AF Launcher
-AF stands for Ad-Free :D
+# Fork of [Olauncher](https://github.com/tanujnotes/Olauncher) 
 
+#### Download the APK from the [latest release](https://github.com/Outplayed8713/Olauncher/releases/).
 
-## Install
+## Added Features
+1. Website Shortcuts
+2. Increased Number of Home Apps from 8 to 12.
 
-#### Install from [F-Droid](https://f-droid.org/packages/app.olauncher) or [Play Store](https://play.google.com/store/apps/details?id=app.olauncher) or download the APK from the [latest release](https://github.com/tanujnotes/Olauncher/releases/).
+## Usage
+When searching for apps in the app drawer you can add a website shortcut by typing the website url preceded by an "*".
 
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-    alt="Get it on F-Droid"
-    height="80">](https://f-droid.org/packages/app.olauncher)
-[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-    alt="Get it on F-Droid"
-    height="80">](https://play.google.com/store/apps/details?id=app.olauncher)
+For example you can add a shortcut to example.com by typing "*https://example.com/" and hitting enter. The website should then open in your default browser. When you next open the app drawer you should see your website shortcut listed as the url you entered. I would suggest renaming the shortcut to something more concise and memorable.
 
-To maintain the simplicity of the launcher, a few niche features are available but hidden.
+Holding down the shortcut will give you the option to delete it, rename it, or move it to your hidden apps. If you click the info button you can choose which browser to open the website shortcut in. From now on this website shortcut will be opened in the browser you selected.
 
-Please check out the [About](https://tanujnotes.substack.com/p/olauncher-minimal-af-launcher?utm_source=github) page in Olauncher settings for the complete feature list and FAQs.
+Website shortcuts can also be set as a home app shortcut, clock app shortcut, calendar app shortcut, and can be opened using swipe gestures.
 
-##
-
-License: [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
-
-Developer: [@tanujnotes](https://twitter.com/tanujnotes)
-
-Thank you and have a wonderful day!
