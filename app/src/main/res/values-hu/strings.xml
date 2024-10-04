@@ -1,6 +1,7 @@
 <resources>
     <string name="app">Alkalmazás</string>
     <string name="set_as_default_launcher">Beállítás alapért. indítóként</string>
+    <string name="set_as_default_launcher_u"><u>Beállítás alapért. indítóként</u></string>
     <string name="set_as_default_launcher_first">Beállítás alapértelmezett indítóként</string>
     <string name="app_text_color">Szövegszín</string>
     <string name="double_tap_to_lock_screen">Dupla koppintás a képernyő lezárásához</string>
@@ -51,12 +52,12 @@
     <string name="system_default">Rendszer</string>
     <string name="dark">Sötét</string>
     <string name="light">Világos</string>
-    <string name="welcome_to_olauncher_settings">A Névjegy oldalunk alján megtalálja a válaszokat minden kérdésére. Ne feledje el. :)
-            \n\nKöszönjük!</string>
+    <string name="welcome_to_olauncher_settings">Üdvözöljük a beállításokban!
+        \n\nNe feledje, ha bármilyen kérdése van, az „Rólunk” oldalunk tartalmazza a választ.</string>
     <string name="rate_us_message">Üdv, ezt az üzenetet nem fogja újra látni.
             \n\nHa tetszik az Olauncher, kérjük, adjon nekünk 5 csillagos értékelést! Ez segít javítani a helyezésünket, és nagyon boldoggá tesz minket. Köszönjük!</string>
-<!--    <string name="share_message">Sziasztok, segítségre van szükségünk! Tavaly átléptük az egymillió letöltést. Idén egy millióval többet szeretnénk elérni, de egyedül nem tudjuk megtenni.-->
-<!--        \n\nLenne szíves megosztani az Olaunchert a barátaival, kérem? Köszönöm és további szép napot!</string>-->
+    <!--    <string name="share_message">Sziasztok, segítségre van szükségünk! Tavaly átléptük az egymillió letöltést. Idén egy millióval többet szeretnénk elérni, de egyedül nem tudjuk megtenni.-->
+    <!--        \n\nLenne szíves megosztani az Olaunchert a barátaival, kérem? Köszönöm és további szép napot!</string>-->
     <string name="share_message">Az Ön havi emlékeztetője - használja Ön a telefonját, és ne a telefonja Önt! Csak így tovább! Nagyszerűen csinálja!
         \n\nHa van egy kis ideje, kérjük, ossza meg másokkal is az Olauncher-t. Az Olauncher-nek szüksége van emberekre. De ami még fontosabb, az embereknek szüksége van az Olauncher-re..</string>
     <string name="keyboard_message">Üdv, a billentyűzet a leggyorsabb módja az alkalmazások megtalálásához és elindításához az Olauncherben. Megkérhetjük, hogy hagyja bekapcsolva még néhány napig, és utána döntsön?
@@ -123,11 +124,11 @@
     <string name="adapter_hide">Rejtsd el!</string>
     <string name="are_you_using_your_phone_or_is_your_phone_using_you">Ön használja a telefonját, vagy a telefonja használja Önt?</string>
     <string name="about_olauncher">Az Olauncher-ről</string>
-    <string name="digital_wellbeing">Digitális jóllét</string>
+    <string name="screen_time">Képernyőidő</string> <!-- Hungarian -->
     <string name="learn_more">Tudjon meg többet</string>
     <string name="did_you_know">Tudta?</string>
     <string name="leave_a_review">Hagyjon véleményt</string>
     <string name="review_message">Az Olauncher teljesen ingyenes és mindig is ingyenes lesz. Nincsenek hirdetései. Nem gyűjt adatokat. A legfontosabb, hogy segít csökkenteni a képernyő előtt töltött időt és egészségesebb digitális életet élni.
         \n\nÚgy gondoljuk, hogy a minimális indítóra váltás kiváló döntés. Bár nyilvánvalóan elfogultak vagyunk, reméljük, hogy élvezni fogja az élményt. Nyugodtan ossza meg velünk gondolatait!</string>
-    <string name="alignment_changed">Az igazítás megváltozott ✅</string>
+    <string name="alignment_changed">Igazítás megváltozott ✅</string> <!-- Hungarian -->
 </resources>
