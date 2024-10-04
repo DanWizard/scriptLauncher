@@ -14,6 +14,10 @@
     <string name="tag_6" translatable="false">6</string>
     <string name="tag_7" translatable="false">7</string>
     <string name="tag_8" translatable="false">8</string>
+    <string name="tag_9" translatable="false">9</string>
+    <string name="tag_10" translatable="false">10</string>
+    <string name="tag_11" translatable="false">11</string>
+    <string name="tag_12" translatable="false">12</string>
 
     <string name="app">App</string>
     <string name="set_as_default_launcher">Set as default launcher</string>
@@ -53,6 +57,11 @@
     <string name="_6">6</string>
     <string name="_7">7</string>
     <string name="_8">8</string>
+    <string name="_9" translatable="false">9</string>
+    <string name="_10" translatable="false">10</string>
+    <string name="_11" translatable="false">11</string>
+    <string name="_12" translatable="false">12</string>
+
     <string name="app_drawer_tips">Tip: Start typing an app name to auto-launch it</string>
     <string name="okay">Okay</string>
     <string name="cool">Cool!</string>

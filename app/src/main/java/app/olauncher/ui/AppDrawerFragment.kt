@@ -3,11 +3,14 @@ package app.olauncher.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.webkit.URLUtil
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -30,6 +33,7 @@ import app.olauncher.helper.showKeyboard
 import app.olauncher.helper.showToast
 import app.olauncher.helper.uninstall
 import app.olauncher.helper.BrowserSelector
+import java.net.URL
 
 
 class AppDrawerFragment : Fragment() {
@@ -80,16 +84,44 @@ class AppDrawerFragment : Fragment() {
             e.printStackTrace()
         }
     }
+    fun isValidUrl(input: String): Boolean {
+        // Check if input is empty
+        if (input.isEmpty()) {
+            return false
+        }
 
+        // Check if the input matches common URL patterns
+        if (!Patterns.WEB_URL.matcher(input).matches()) {
+            return false
+        }
+
+        // Check if the URL starts with a valid scheme
+        if (!URLUtil.isHttpUrl(input) && !URLUtil.isHttpsUrl(input)) {
+            return false
+        }
+
+        // Try to parse the URL
+        return try {
+            URL(input)
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
     private fun initSearch() {
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query?.startsWith("*") == true) {
-                    val newSet = mutableSetOf<String>()
-                    newSet.addAll(prefs.websites)
-                    newSet.add(query.replace("*", ""))
-                    prefs.websites = newSet
-                    requireContext().openUrl(query.replace("*", ""))
+                    val url = query.replace("*", "")
+                    if (isValidUrl(url)) {
+                        val newSet = mutableSetOf<String>()
+                        newSet.addAll(prefs.websites)
+                        newSet.add(query.replace("*", ""))
+                        prefs.websites = newSet
+                        requireContext().openUrl(query.replace("*", ""))
+                    } else{
+                        requireContext().showToast("Please enter a valid Url", Toast.LENGTH_SHORT)
+                    }
                 }
                 else if (query?.startsWith("!") == true)
                     requireContext().openUrl(Constants.URL_DUCK_SEARCH + query.replace(" ", "%20"))
@@ -281,6 +313,10 @@ class AppDrawerFragment : Fragment() {
                 Constants.FLAG_SET_HOME_APP_6 -> prefs.appName6 = name
                 Constants.FLAG_SET_HOME_APP_7 -> prefs.appName7 = name
                 Constants.FLAG_SET_HOME_APP_8 -> prefs.appName8 = name
+                Constants.FLAG_SET_HOME_APP_9 -> prefs.appName9 = name
+                Constants.FLAG_SET_HOME_APP_10 -> prefs.appName10 = name
+                Constants.FLAG_SET_HOME_APP_11 -> prefs.appName11 = name
+                Constants.FLAG_SET_HOME_APP_12 -> prefs.appName12 = name
             }
             findNavController().popBackStack()
         }

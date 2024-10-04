@@ -47,6 +47,10 @@ class Prefs(context: Context) {
     private val APP_NAME_6 = "APP_NAME_6"
     private val APP_NAME_7 = "APP_NAME_7"
     private val APP_NAME_8 = "APP_NAME_8"
+    private val APP_NAME_9 = "APP_NAME_9"
+    private val APP_NAME_10 = "APP_NAME_10"
+    private val APP_NAME_11 = "APP_NAME_11"
+    private val APP_NAME_12 = "APP_NAME_12"
     private val APP_PACKAGE_1 = "APP_PACKAGE_1"
     private val APP_PACKAGE_2 = "APP_PACKAGE_2"
     private val APP_PACKAGE_3 = "APP_PACKAGE_3"
@@ -55,6 +59,10 @@ class Prefs(context: Context) {
     private val APP_PACKAGE_6 = "APP_PACKAGE_6"
     private val APP_PACKAGE_7 = "APP_PACKAGE_7"
     private val APP_PACKAGE_8 = "APP_PACKAGE_8"
+    private val APP_PACKAGE_9 = "APP_PACKAGE_9"
+    private val APP_PACKAGE_10 = "APP_PACKAGE_10"
+    private val APP_PACKAGE_11 = "APP_PACKAGE_11"
+    private val APP_PACKAGE_12 = "APP_PACKAGE_12"
     private val APP_ACTIVITY_CLASS_NAME_1 = "APP_ACTIVITY_CLASS_NAME_1"
     private val APP_ACTIVITY_CLASS_NAME_2 = "APP_ACTIVITY_CLASS_NAME_2"
     private val APP_ACTIVITY_CLASS_NAME_3 = "APP_ACTIVITY_CLASS_NAME_3"
@@ -63,6 +71,10 @@ class Prefs(context: Context) {
     private val APP_ACTIVITY_CLASS_NAME_6 = "APP_ACTIVITY_CLASS_NAME_6"
     private val APP_ACTIVITY_CLASS_NAME_7 = "APP_ACTIVITY_CLASS_NAME_7"
     private val APP_ACTIVITY_CLASS_NAME_8 = "APP_ACTIVITY_CLASS_NAME_8"
+    private val APP_ACTIVITY_CLASS_NAME_9 = "APP_ACTIVITY_CLASS_NAME_9"
+    private val APP_ACTIVITY_CLASS_NAME_10 = "APP_ACTIVITY_CLASS_NAME_10"
+    private val APP_ACTIVITY_CLASS_NAME_11 = "APP_ACTIVITY_CLASS_NAME_11"
+    private val APP_ACTIVITY_CLASS_NAME_12 = "APP_ACTIVITY_CLASS_NAME_12"
     private val APP_USER_1 = "APP_USER_1"
     private val APP_USER_2 = "APP_USER_2"
     private val APP_USER_3 = "APP_USER_3"
@@ -71,6 +83,10 @@ class Prefs(context: Context) {
     private val APP_USER_6 = "APP_USER_6"
     private val APP_USER_7 = "APP_USER_7"
     private val APP_USER_8 = "APP_USER_8"
+    private val APP_USER_9 = "APP_USER_9"
+    private val APP_USER_10 = "APP_USER_10"
+    private val APP_USER_11 = "APP_USER_11"
+    private val APP_USER_12 = "APP_USER_12"
     private val APP_URL_1 = "APP_URL_1"
     private val APP_URL_2 = "APP_URL_2"
     private val APP_URL_3 = "APP_URL_3"
@@ -79,6 +95,10 @@ class Prefs(context: Context) {
     private val APP_URL_6 = "APP_URL_6"
     private val APP_URL_7 = "APP_URL_7"
     private val APP_URL_8 = "APP_URL_8"
+    private val APP_URL_9 = "APP_URL_9"
+    private val APP_URL_10 = "APP_URL_10"
+    private val APP_URL_11 = "APP_URL_11"
+    private val APP_URL_12 = "APP_URL_12"
     private val APP_BROWSER_1 = "APP_BROWSER_1"
     private val APP_BROWSER_2 = "APP_BROWSER_2"
     private val APP_BROWSER_3 = "APP_BROWSER_3"
@@ -87,6 +107,10 @@ class Prefs(context: Context) {
     private val APP_BROWSER_6 = "APP_BROWSER_6"
     private val APP_BROWSER_7 = "APP_BROWSER_7"
     private val APP_BROWSER_8 = "APP_BROWSER_8"
+    private val APP_BROWSER_9 = "APP_BROWSER_9"
+    private val APP_BROWSER_10 = "APP_BROWSER_10"
+    private val APP_BROWSER_11 = "APP_BROWSER_11"
+    private val APP_BROWSER_12 = "APP_BROWSER_12"
 
     private val APP_NAME_SWIPE_LEFT = "APP_NAME_SWIPE_LEFT"
     private val APP_NAME_SWIPE_RIGHT = "APP_NAME_SWIPE_RIGHT"
@@ -263,6 +287,22 @@ class Prefs(context: Context) {
         get() = prefs.getString(APP_NAME_8, "").toString()
         set(value) = prefs.edit().putString(APP_NAME_8, value).apply()
 
+    var appName9: String
+        get() = prefs.getString(APP_NAME_9, "").toString()
+        set(value) = prefs.edit().putString(APP_NAME_9, value).apply()
+
+    var appName10: String
+        get() = prefs.getString(APP_NAME_10, "").toString()
+        set(value) = prefs.edit().putString(APP_NAME_10, value).apply()
+
+    var appName11: String
+        get() = prefs.getString(APP_NAME_11, "").toString()
+        set(value) = prefs.edit().putString(APP_NAME_11, value).apply()
+
+    var appName12: String
+        get() = prefs.getString(APP_NAME_12, "").toString()
+        set(value) = prefs.edit().putString(APP_NAME_12, value).apply()
+
     var appPackage1: String
         get() = prefs.getString(APP_PACKAGE_1, "").toString()
         set(value) = prefs.edit().putString(APP_PACKAGE_1, value).apply()
@@ -294,6 +334,22 @@ class Prefs(context: Context) {
     var appPackage8: String
         get() = prefs.getString(APP_PACKAGE_8, "").toString()
         set(value) = prefs.edit().putString(APP_PACKAGE_8, value).apply()
+
+    var appPackage9: String
+        get() = prefs.getString(APP_PACKAGE_9, "").toString()
+        set(value) = prefs.edit().putString(APP_PACKAGE_9, value).apply()
+
+    var appPackage10: String
+        get() = prefs.getString(APP_PACKAGE_10, "").toString()
+        set(value) = prefs.edit().putString(APP_PACKAGE_10, value).apply()
+
+    var appPackage11: String
+        get() = prefs.getString(APP_PACKAGE_11, "").toString()
+        set(value) = prefs.edit().putString(APP_PACKAGE_11, value).apply()
+
+    var appPackage12: String
+        get() = prefs.getString(APP_PACKAGE_12, "").toString()
+        set(value) = prefs.edit().putString(APP_PACKAGE_12, value).apply()
 
     var appActivityClassName1: String?
         get() = prefs.getString(APP_ACTIVITY_CLASS_NAME_1, "").toString()
@@ -327,6 +383,22 @@ class Prefs(context: Context) {
         get() = prefs.getString(APP_ACTIVITY_CLASS_NAME_8, "").toString()
         set(value) = prefs.edit().putString(APP_ACTIVITY_CLASS_NAME_8, value).apply()
 
+    var appActivityClassName9: String?
+        get() = prefs.getString(APP_ACTIVITY_CLASS_NAME_9, "").toString()
+        set(value) = prefs.edit().putString(APP_ACTIVITY_CLASS_NAME_9, value).apply()
+
+    var appActivityClassName10: String?
+        get() = prefs.getString(APP_ACTIVITY_CLASS_NAME_10, "").toString()
+        set(value) = prefs.edit().putString(APP_ACTIVITY_CLASS_NAME_10, value).apply()
+
+    var appActivityClassName11: String?
+        get() = prefs.getString(APP_ACTIVITY_CLASS_NAME_11, "").toString()
+        set(value) = prefs.edit().putString(APP_ACTIVITY_CLASS_NAME_11, value).apply()
+
+    var appActivityClassName12: String?
+        get() = prefs.getString(APP_ACTIVITY_CLASS_NAME_12, "").toString()
+        set(value) = prefs.edit().putString(APP_ACTIVITY_CLASS_NAME_12, value).apply()
+
     var appUser1: String
         get() = prefs.getString(APP_USER_1, "").toString()
         set(value) = prefs.edit().putString(APP_USER_1, value).apply()
@@ -359,9 +431,26 @@ class Prefs(context: Context) {
         get() = prefs.getString(APP_USER_8, "").toString()
         set(value) = prefs.edit().putString(APP_USER_8, value).apply()
 
+    var appUser9: String
+        get() = prefs.getString(APP_USER_9, "").toString()
+        set(value) = prefs.edit().putString(APP_USER_9, value).apply()
+
+    var appUser10: String
+        get() = prefs.getString(APP_USER_10, "").toString()
+        set(value) = prefs.edit().putString(APP_USER_10, value).apply()
+
+    var appUser11: String
+        get() = prefs.getString(APP_USER_11, "").toString()
+        set(value) = prefs.edit().putString(APP_USER_11, value).apply()
+
+    var appUser12: String
+        get() = prefs.getString(APP_USER_12, "").toString()
+        set(value) = prefs.edit().putString(APP_USER_12, value).apply()
+
     var appUrl1: String
         get() = prefs.getString(APP_URL_1, "").toString()
         set(value) = prefs.edit().putString(APP_URL_1, value).apply()
+
     var appUrl2: String
         get() = prefs.getString(APP_URL_2, "").toString()
         set(value) = prefs.edit().putString(APP_URL_2, value).apply()
@@ -389,6 +478,22 @@ class Prefs(context: Context) {
     var appUrl8: String
         get() = prefs.getString(APP_URL_8, "").toString()
         set(value) = prefs.edit().putString(APP_URL_8, value).apply()
+
+    var appUrl9: String
+        get() = prefs.getString(APP_URL_9, "").toString()
+        set(value) = prefs.edit().putString(APP_URL_9, value).apply()
+
+    var appUrl10: String
+        get() = prefs.getString(APP_URL_10, "").toString()
+        set(value) = prefs.edit().putString(APP_URL_10, value).apply()
+
+    var appUrl11: String
+        get() = prefs.getString(APP_URL_11, "").toString()
+        set(value) = prefs.edit().putString(APP_URL_11, value).apply()
+
+    var appUrl12: String
+        get() = prefs.getString(APP_URL_12, "").toString()
+        set(value) = prefs.edit().putString(APP_URL_12, value).apply()
 
     var appBrowser1: String
         get() = prefs.getString(APP_BROWSER_1, "").toString()
@@ -421,6 +526,22 @@ class Prefs(context: Context) {
     var appBrowser8: String
         get() = prefs.getString(APP_BROWSER_8, "").toString()
         set(value) = prefs.edit().putString(APP_BROWSER_8, value).apply()
+
+    var appBrowser9: String
+        get() = prefs.getString(APP_BROWSER_9, "").toString()
+        set(value) = prefs.edit().putString(APP_BROWSER_9, value).apply()
+
+    var appBrowser10: String
+        get() = prefs.getString(APP_BROWSER_10, "").toString()
+        set(value) = prefs.edit().putString(APP_BROWSER_10, value).apply()
+
+    var appBrowser11: String
+        get() = prefs.getString(APP_BROWSER_11, "").toString()
+        set(value) = prefs.edit().putString(APP_BROWSER_11, value).apply()
+
+    var appBrowser12: String
+        get() = prefs.getString(APP_BROWSER_12, "").toString()
+        set(value) = prefs.edit().putString(APP_BROWSER_12, value).apply()
 
     var appNameSwipeLeft: String
         get() = prefs.getString(APP_NAME_SWIPE_LEFT, "Camera").toString()
@@ -522,6 +643,10 @@ class Prefs(context: Context) {
             6 -> prefs.getString(APP_NAME_6, "").toString()
             7 -> prefs.getString(APP_NAME_7, "").toString()
             8 -> prefs.getString(APP_NAME_8, "").toString()
+            9 -> prefs.getString(APP_NAME_9, "").toString()
+            10 -> prefs.getString(APP_NAME_10, "").toString()
+            11 -> prefs.getString(APP_NAME_11, "").toString()
+            12 -> prefs.getString(APP_NAME_12, "").toString()
             else -> ""
         }
     }
@@ -536,6 +661,10 @@ class Prefs(context: Context) {
             6 -> prefs.getString(APP_PACKAGE_6, "").toString()
             7 -> prefs.getString(APP_PACKAGE_7, "").toString()
             8 -> prefs.getString(APP_PACKAGE_8, "").toString()
+            9 -> prefs.getString(APP_PACKAGE_9, "").toString()
+            10 -> prefs.getString(APP_PACKAGE_10, "").toString()
+            11 -> prefs.getString(APP_PACKAGE_11, "").toString()
+            12 -> prefs.getString(APP_PACKAGE_12, "").toString()
             else -> ""
         }
     }
@@ -550,6 +679,10 @@ class Prefs(context: Context) {
             6 -> prefs.getString(APP_ACTIVITY_CLASS_NAME_6, "").toString()
             7 -> prefs.getString(APP_ACTIVITY_CLASS_NAME_7, "").toString()
             8 -> prefs.getString(APP_ACTIVITY_CLASS_NAME_8, "").toString()
+            9 -> prefs.getString(APP_ACTIVITY_CLASS_NAME_9, "").toString()
+            10 -> prefs.getString(APP_ACTIVITY_CLASS_NAME_10, "").toString()
+            11 -> prefs.getString(APP_ACTIVITY_CLASS_NAME_11, "").toString()
+            12 -> prefs.getString(APP_ACTIVITY_CLASS_NAME_12, "").toString()
             else -> ""
         }
     }
@@ -564,6 +697,10 @@ class Prefs(context: Context) {
             6 -> prefs.getString(APP_USER_6, "").toString()
             7 -> prefs.getString(APP_USER_7, "").toString()
             8 -> prefs.getString(APP_USER_8, "").toString()
+            9 -> prefs.getString(APP_USER_9, "").toString()
+            10 -> prefs.getString(APP_USER_10, "").toString()
+            11 -> prefs.getString(APP_USER_11, "").toString()
+            12 -> prefs.getString(APP_USER_12, "").toString()
             else -> ""
         }
     }
@@ -577,6 +714,10 @@ class Prefs(context: Context) {
             6 -> prefs.getString(APP_URL_6, "").toString()
             7 -> prefs.getString(APP_URL_7, "").toString()
             8 -> prefs.getString(APP_URL_8, "").toString()
+            9 -> prefs.getString(APP_URL_9, "").toString()
+            10 -> prefs.getString(APP_URL_10, "").toString()
+            11 -> prefs.getString(APP_URL_11, "").toString()
+            12 -> prefs.getString(APP_URL_12, "").toString()
             else -> ""
         }
     }
@@ -590,6 +731,10 @@ class Prefs(context: Context) {
             6 -> prefs.getString(APP_BROWSER_6, "").toString()
             7 -> prefs.getString(APP_BROWSER_7, "").toString()
             8 -> prefs.getString(APP_BROWSER_8, "").toString()
+            9 -> prefs.getString(APP_BROWSER_9, "").toString()
+            10 -> prefs.getString(APP_BROWSER_10, "").toString()
+            11 -> prefs.getString(APP_BROWSER_11, "").toString()
+            12 -> prefs.getString(APP_BROWSER_12, "").toString()
             else -> ""
         }
     }

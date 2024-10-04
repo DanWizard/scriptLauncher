@@ -132,6 +132,46 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 refreshHome(false)
             }
 
+            Constants.FLAG_SET_HOME_APP_9 -> {
+                prefs.appName9 = appModel.appLabel
+                prefs.appPackage9 = appModel.appPackage
+                prefs.appUser9 = appModel.user.toString()
+                prefs.appActivityClassName9 = appModel.activityClassName
+                prefs.appUrl9 = appModel.url
+                prefs.appBrowser9 = appModel.browser
+                refreshHome(false)
+            }
+
+            Constants.FLAG_SET_HOME_APP_10 -> {
+                prefs.appName10 = appModel.appLabel
+                prefs.appPackage10 = appModel.appPackage
+                prefs.appUser10 = appModel.user.toString()
+                prefs.appActivityClassName10 = appModel.activityClassName
+                prefs.appUrl10 = appModel.url
+                prefs.appBrowser10 = appModel.browser
+                refreshHome(false)
+            }
+
+            Constants.FLAG_SET_HOME_APP_11 -> {
+                prefs.appName11 = appModel.appLabel
+                prefs.appPackage11 = appModel.appPackage
+                prefs.appUser11 = appModel.user.toString()
+                prefs.appActivityClassName11 = appModel.activityClassName
+                prefs.appUrl11 = appModel.url
+                prefs.appBrowser11 = appModel.browser
+                refreshHome(false)
+            }
+
+            Constants.FLAG_SET_HOME_APP_12 -> {
+                prefs.appName12 = appModel.appLabel
+                prefs.appPackage12 = appModel.appPackage
+                prefs.appUser12 = appModel.user.toString()
+                prefs.appActivityClassName12 = appModel.activityClassName
+                prefs.appUrl12 = appModel.url
+                prefs.appBrowser12 = appModel.browser
+                refreshHome(false)
+            }
+
             Constants.FLAG_SET_SWIPE_LEFT_APP -> {
                 prefs.appNameSwipeLeft = appModel.appLabel
                 prefs.appPackageSwipeLeft = appModel.appPackage
