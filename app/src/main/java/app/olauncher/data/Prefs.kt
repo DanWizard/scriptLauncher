@@ -4,6 +4,30 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.view.Gravity
 import androidx.appcompat.app.AppCompatDelegate
+import android.util.Log
+import java.io.File
+import android.os.Environment
+
+fun loadScriptsIntoPrefs(): MutableList<Array<String>> {
+    val scriptList = mutableListOf<Array<String>>()
+    Log.d("Prefs", "entered func")
+    val scriptsDir = File(Environment.getExternalStorageDirectory(), "scripts")
+    Log.d("Prefs", "scriptsDir: $scriptsDir")
+    Log.d("Prefs", "scriptsDir.exists(): ${scriptsDir.exists()}")
+    Log.d("Prefs", "scriptsDir.isDirectory: ${scriptsDir.isDirectory}")
+    if (scriptsDir.exists() && scriptsDir.isDirectory) {
+
+        scriptsDir.listFiles()?.forEach { item -> run {
+            val path = item.absolutePath
+            val name = item.name
+            val scriptInfo = arrayOf(path,name)
+            scriptList.add(scriptInfo)
+        } }
+        Log.d("Prefs", "scriptlist: ${scriptList[0][1]}")
+
+    }
+    return scriptList
+}
 
 class Prefs(context: Context) {
     private val PREFS_FILENAME = "app.olauncher"
@@ -136,6 +160,8 @@ class Prefs(context: Context) {
     private val CALENDAR_APP_BROWSER = "CALENDAR_APP_BROWSER"
 
     private val WEBSITES = "WEBSITES"
+    private val SCRIPTS = "SCRIPTS"
+
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0);
 
@@ -632,6 +658,10 @@ class Prefs(context: Context) {
     var websites: MutableSet<String>
         get() = prefs.getStringSet(WEBSITES, mutableSetOf()) as MutableSet<String>
         set(value) = prefs.edit().putStringSet(WEBSITES, value).apply()
+
+    var scripts: MutableSet<String>
+        get() = prefs.getStringSet(SCRIPTS, mutableSetOf()) as MutableSet<String>
+        set(value) = prefs.edit().putStringSet(SCRIPTS, value).apply()
 
     fun getAppName(location: Int): String {
         return when (location) {

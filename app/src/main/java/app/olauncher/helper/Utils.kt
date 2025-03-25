@@ -40,6 +40,7 @@ import app.olauncher.R
 import app.olauncher.data.AppModel
 import app.olauncher.data.Constants
 import app.olauncher.data.Prefs
+import app.olauncher.data.loadScriptsIntoPrefs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -76,10 +77,30 @@ suspend fun getAppsList(
             if (!Prefs(context).hiddenAppsUpdated) upgradeHiddenApps(Prefs(context))
             val hiddenApps = Prefs(context).hiddenApps
             val websites = Prefs(context).websites
+            val scripts = loadScriptsIntoPrefs()
 
             val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
             val launcherApps = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
             val collator = Collator.getInstance()
+
+            for (script in scripts){
+                val scripPath = script[0]
+                val scriptName = script[1]
+                val appLabelShown = scriptName
+                val appModel = AppModel(
+                    appLabelShown,
+                    null,
+                    "script",
+                    scriptName,
+                    false,
+                    android.os.Process.myUserHandle(),
+                    "",
+                    "",
+                    true,
+                    scripPath)
+
+                appList.add(appModel)
+            }
 
             for (profile in userManager.userProfiles) {
                 for (app in launcherApps.getActivityList(null, profile)) {
@@ -93,7 +114,9 @@ suspend fun getAppsList(
                         (System.currentTimeMillis() - app.firstInstallTime) < Constants.ONE_HOUR_IN_MILLIS,
                         profile,
                         "",
-                        ""
+                        "",
+                        false,
+                        null
                     )
 
                     // if the current app is not OLauncher
@@ -114,7 +137,19 @@ suspend fun getAppsList(
                 for (website in websites){
                     val appLabelShown = prefs.getWebsiteRenameLabel(website).ifBlank { website }
                     val browser = prefs.getBrowserOption(website).ifBlank { "" }
-                    val appModel = AppModel(appLabelShown,null,"website",website,false,android.os.Process.myUserHandle(),website,browser)
+                    val appModel = AppModel(
+                        appLabelShown,
+                        null,
+                        "website",
+                        website,
+                        false,
+                        android.os.Process.myUserHandle(),
+                        website,
+                        browser,
+                        false,
+                        null
+                    )
+
                     if (hiddenApps.contains(website + "|" + profile.toString())) {
                         if (includeHiddenApps){
                             appList.add(appModel)

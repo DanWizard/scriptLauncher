@@ -3,11 +3,13 @@ package app.olauncher.ui
 import android.app.admin.DevicePolicyManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.BatteryManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Vibrator
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +28,7 @@ import app.olauncher.R
 import app.olauncher.data.AppModel
 import app.olauncher.data.Constants
 import app.olauncher.data.Prefs
+import app.olauncher.data.loadScriptsIntoPrefs
 import app.olauncher.databinding.FragmentHomeBinding
 import app.olauncher.helper.expandNotificationDrawer
 import app.olauncher.helper.getChangedAppTheme
@@ -40,6 +43,7 @@ import app.olauncher.helper.setPlainWallpaperByTheme
 import app.olauncher.helper.showToast
 import app.olauncher.listener.OnSwipeTouchListener
 import app.olauncher.listener.ViewSwipeTouchListener
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -258,8 +262,10 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
     private fun populateHomeScreen(appCountUpdated: Boolean) {
         if (appCountUpdated) hideHomeApps()
         populateDateTime()
-
+        Log.d("Prefs", "entered populatehomescreen")
+        Log.d("Prefs", "appsCountUpdated $appCountUpdated")
         val homeAppsNum = prefs.homeAppsNum
+        Log.d("Prefs", "homeappsnum $homeAppsNum")
         if (homeAppsNum == 0) return
 
         binding.homeApp1.visibility = View.VISIBLE
@@ -348,7 +354,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
     }
 
     private fun setHomeAppText(textView: TextView, appName: String, packageName: String, userString: String): Boolean {
-        if (isPackageInstalled(requireContext(), packageName, userString) || packageName == "website" ) {
+        if (isPackageInstalled(requireContext(), packageName, userString) || packageName == "website" || packageName == "script") {
             textView.text = appName
             return true
         }
@@ -389,9 +395,72 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         )
     }
 
+
+    private fun executeTermuxScript(script: String) {
+        // Check if Termux is installed
+        if (!isTermuxInstalled()) {
+            requireContext().showToast("Termux not installed. Please install Termux from F-Droid.")
+            return
+        }
+
+        // Ensure script path is absolute and valid
+        val absoluteScriptPath = "/data/data/com.termux/files/home/olauncher_scripts/$script"
+        val file = File(absoluteScriptPath)
+        Log.d("Prefs", "Script absolutepath: ${file.absolutePath}")
+        Log.d("Prefs", "Script name: ${file.name}")
+//        if (!file.exists()) {
+//            requireContext().showToast("Script not found at: $absoluteScriptPath")
+//            Log.e("Prefs", "Script not found: $absoluteScriptPath")
+//            return
+//        }
+
+        // Intent to open Termux and execute the script
+        val intent = Intent()
+        intent.setClassName("com.termux", "com.termux.app.RunCommandService")
+        // intent.setClassName("com.termux", "com.termux.app.RunCommandService")
+        intent.setAction("com.termux.RUN_COMMAND");
+         intent.putExtra("com.termux.RUN_COMMAND_PATH",absoluteScriptPath)
+         // intent.putExtra("com.termux.RUN_COMMAND_PATH", "/data/data/com.termux/files/usr/bin/top")
+//        intent.putExtra("com.termux.RUN_COMMAND_ARGUMENTS", arrayOf()) // No additional args needed
+        intent.putExtra("com.termux.RUN_COMMAND_WORKDIR", "/data/data/com.termux/files/home")
+        intent.putExtra("com.termux.RUN_COMMAND_BACKGROUND", false)
+        intent.putExtra("com.termux.RUN_COMMAND_SESSION_ACTION", "0") // 0 = new session with output
+
+        try {
+            requireContext().startForegroundService(intent)
+            Log.d("Prefs", "Script launched: $absoluteScriptPath")
+        } catch (e: SecurityException) {
+            requireContext().showToast("Permission denied. Grant 'Run commands in Termux' in OLauncher settings.")
+            Log.e("Prefs", "SecurityException launching script: $absoluteScriptPath", e)
+        } catch (e: Exception) {
+            requireContext().showToast("Failed to launch script")
+            Log.e("Prefs", "Script launch failed: $absoluteScriptPath", e)
+        }
+    }
+
+    private fun isTermuxInstalled(): Boolean {
+        return try {
+            val packageManager = requireContext().packageManager
+            packageManager.getPackageInfo("com.termux", 0)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
+    }
+
+
     private fun launchApp(appName: String, packageName: String, activityClassName: String?, userString: String, url: String, browser: String) {
+// need to put code for calling termux here
+
+
         if(packageName=="website"){
             openUrl(url,browser)
+        }else if(packageName == "script"){
+            Log.d("Prefs", "run execute")
+            if (activityClassName != null) {
+
+            executeTermuxScript(activityClassName)
+            }
         }
         else {
             viewModel.selectedApp(
@@ -403,7 +472,9 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                     false,
                     getUserHandleFromString(requireContext(), userString),
                     url,
-                    browser
+                    browser,
+                    false,
+                    null
                 ),
                 Constants.FLAG_LAUNCH_APP
             )

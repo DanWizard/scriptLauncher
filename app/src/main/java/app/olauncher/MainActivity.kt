@@ -1,10 +1,11 @@
 package app.olauncher
-
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -18,6 +19,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import app.olauncher.data.Constants
 import app.olauncher.data.Prefs
+import app.olauncher.data.loadScriptsIntoPrefs
 import app.olauncher.databinding.ActivityMainBinding
 import app.olauncher.helper.hasBeenDays
 import app.olauncher.helper.hasBeenHours
@@ -34,6 +36,11 @@ import app.olauncher.helper.shareApp
 import app.olauncher.helper.showLauncherSelector
 import app.olauncher.helper.showToast
 import java.util.Calendar
+import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import android.os.Environment
+import android.net.Uri
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,8 +61,41 @@ class MainActivity : AppCompatActivity() {
         super.attachBaseContext(context)
     }
 
+    private val STORAGE_PERMISSION_CODE = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         prefs = Prefs(this)
+        Log.i("Prefs", "onCreate started")
+
+        val hasPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            Environment.isExternalStorageManager()
+        } else {
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        }
+        Log.i("Prefs", "Storage permission granted: $hasPermission")
+
+        if (!hasPermission) {
+            Log.i("Prefs", "Requesting storage permission")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                try {
+                    val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                    intent.data = Uri.parse("package:$packageName")
+                    startActivityForResult(intent, STORAGE_PERMISSION_CODE)
+                } catch (e: Exception) {
+                    val intent = Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+                    startActivityForResult(intent, STORAGE_PERMISSION_CODE)
+                }
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    STORAGE_PERMISSION_CODE
+                )
+            }
+        } else {
+            Log.i("Prefs", "Permission already granted, loading scripts")
+            loadScriptsIntoPrefs()
+        }
+
         if (isEinkDisplay()) prefs.appTheme = AppCompatDelegate.MODE_NIGHT_NO
         AppCompatDelegate.setDefaultNightMode(prefs.appTheme)
         super.onCreate(savedInstanceState)

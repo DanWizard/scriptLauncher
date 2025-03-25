@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.pm.LauncherApps
 import android.os.UserHandle
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -53,6 +54,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             Constants.FLAG_SET_HOME_APP_1 -> {
+                Log.d("Prefs", "selected app: $appModel")
                 prefs.appName1 = appModel.appLabel
                 prefs.appPackage1 = appModel.appPackage
                 prefs.appUser1 = appModel.user.toString()
@@ -79,6 +81,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.appActivityClassName3 = appModel.activityClassName
                 prefs.appUrl3 = appModel.url
                 prefs.appBrowser3 = appModel.browser
+
                 refreshHome(false)
             }
 
@@ -229,7 +232,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private fun launchApp(packageName: String, activityClassName: String?, userHandle: UserHandle) {
         val launcher = appContext.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
         val activityInfo = launcher.getActivityList(packageName, userHandle)
-
+        Log.d("Prefs", "mainviewmodel entered launch app")
         val component = if (activityClassName.isNullOrBlank()) {
             // activityClassName will be null for hidden apps.
             when (activityInfo.size) {
@@ -242,18 +245,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 else -> ComponentName(packageName, activityInfo[activityInfo.size - 1].name)
             }
         } else {
+            Log.d("Prefs", "entered component name")
             ComponentName(packageName, activityClassName)
         }
 
         try {
+            Log.d("Prefs", "try launcher 1")
             launcher.startMainActivity(component, userHandle, null, null)
         } catch (e: SecurityException) {
+            Log.d("Prefs", "er1 $e")
             try {
+                Log.d("Prefs", "try launcher 2")
                 launcher.startMainActivity(component, android.os.Process.myUserHandle(), null, null)
             } catch (e: Exception) {
                 appContext.showToast(appContext.getString(R.string.unable_to_open_app))
             }
         } catch (e: Exception) {
+            Log.d("Prefs", "er2 $e")
             appContext.showToast(appContext.getString(R.string.unable_to_open_app))
         }
     }

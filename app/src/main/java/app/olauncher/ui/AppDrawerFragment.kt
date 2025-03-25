@@ -3,6 +3,7 @@ package app.olauncher.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -151,6 +152,9 @@ class AppDrawerFragment : Fragment() {
             flag,
             prefs.appLabelAlignment,
             appClickListener = {
+                Log.d("Prefs", "clicked on appmodel: $it")
+                Log.d("Prefs", "is apppackage empty: ${it.appPackage.isEmpty()}")
+                Log.d("Prefs", "flag: $flag")
                 if (it.appPackage.isEmpty())
                     return@AppDrawerAdapter
                 if (it.appPackage == "website" && (flag == Constants.FLAG_LAUNCH_APP || flag == Constants.FLAG_HIDDEN_APPS)){
@@ -161,6 +165,7 @@ class AppDrawerFragment : Fragment() {
                     startActivity(browserIntent)
                 }
                 else {
+                    Log.d("Prefs", "viewmodel condition entered")
                     viewModel.selectedApp(it, flag)
                 }
                 if (flag == Constants.FLAG_LAUNCH_APP || flag == Constants.FLAG_HIDDEN_APPS)

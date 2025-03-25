@@ -12,6 +12,8 @@ data class AppModel(
     val user: UserHandle,
     val url: String,
     val browser: String,
+    val isScript: Boolean? = false,
+    val scriptPath: String?,
 ) : Comparable<AppModel> {
     override fun compareTo(other: AppModel): Int = when {
         key != null && other.key != null -> key.compareTo(other.key)
