@@ -25,7 +25,3 @@ I’m not a pro Android developer—just someone who enjoys messing with workflo
    - Scripts placed in `/sdcard/scripts/` will appear in the app drawer. Tap to execute them via Termux.  
    - Shortcuts persist and can be managed like apps (e.g., long-press to rename or delete).  
 
-### Example
-```bash
-#!/bin/bash
-echo "Hello from scriptLauncher!" > /sdcard/output.txt
